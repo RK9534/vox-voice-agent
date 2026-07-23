@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Vox — Voice Clinic Copilot</title>
+<style>
+  body { font-family: -apple-system, Arial, sans-serif; max-width: 640px; margin: 40px auto; padding: 0 20px; color: #222; }
+  h1 { font-size: 22px; }
+  #micBtn { font-size: 18px; padding: 14px 28px; border-radius: 30px; border: none;
+            background: #1f6f4a; color: white; cursor: pointer; }
+  #micBtn.listening { background: #d9534f; }
+  #transcript, #answer { margin-top: 20px; padding: 14px; border-radius: 8px; background: #f4f4f4; min-height: 20px; }
+  #meta { font-size: 12px; color: #777; margin-top: 6px; }
+  .feedback { margin-top: 10px; }
+  .feedback button { font-size: 18px; margin-right: 10px; cursor: pointer; border: 1px solid #ccc; background: white; border-radius: 6px; padding: 4px 10px; }
+  #note { font-size: 13px; color: #999; margin-top: 30px; }
+</style>
+</head>
+<body>
+  <h1>🎙️ Vox — Voice Clinic Copilot (POC)</h1>
+  <p>Hold the button and speak — e.g. "I'd like to book an appointment for Thursday" or "What can you help me with?"</p>
+  <button id="micBtn">🎤 Hold to talk</button>
+
+  <div>
+    <strong>You said:</strong>
+    <div id="transcript">—</div>
+  </div>
+  <div>
+    <strong>Vox:</strong>
+    <div id="answer">—</div>
+    <div id="meta"></div>
+    <div class="feedback" id="feedbackRow" style="display:none;">
+      <button onclick="sendFeedback(1)">👍</button>
+      <button onclick="sendFeedback(0)">👎</button>
+    </div>
+  </div>
+
+  <p id="note">Note: voice input requires Chrome (Web Speech API). Backend calls the agent
+  orchestrator (router → scheduling/FAQ specialist agents with tool calling), then speaks
+  the response back via the browser's speech synthesis.</p>
+
+<script>
+let recognition;
+let currentRequestId = null;
+const micBtn = document.getElementById("micBtn");
+const transcriptEl = document.getElementById("transcript");
+const answerEl = document.getElementById("answer");
+const metaEl = document.getElementById("meta");
+const feedbackRow = document.getElementById("feedbackRow");
+
+if ("webkitSpeechRecognition" in window || "SpeechRecognition" in window) {
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  recognition = new SpeechRecognition();
+  recognition.continuous = false;
+  recognition.interimResults = false;
+  recognition.lang = "en-US";
+
+  recognition.onresult = (event) => {
+    const text = event.results[0][0].transcript;
+    transcriptEl.textContent = text;
+    askAgent(text);
+  };
+  recognition.onend = () => micBtn.classList.remove("listening");
+} else {
+  micBtn.disabled = true;
+  micBtn.textContent = "Speech recognition not supported in this browser";
+}
+
+micBtn.addEventListener("mousedown", () => {
+  if (!recognition) return;
+  micBtn.classList.add("listening");
+  feedbackRow.style.display = "none";
+  recognition.start();
+});
+
+async function askAgent(query) {
+  answerEl.textContent = "…thinking…";
+  metaEl.textContent = "";
+  const res = await fetch("/ask", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ query }),
+  });
+  const data = await res.json();
+  currentRequestId = data.request_id;
+  answerEl.textContent = data.answer;
+  metaEl.textContent = `agent: ${data.agent} | variant: ${data.variant} | ` +
+    `latency: ${data.latency_seconds.toFixed(2)}s | tokens: ${data.input_tokens + data.output_tokens}`;
+  feedbackRow.style.display = "block";
+
+  const utterance = new SpeechSynthesisUtterance(data.answer);
+  speechSynthesis.speak(utterance);
+}
+
+async function sendFeedback(rating) {
+  if (!currentRequestId) return;
+  await fetch("/feedback", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ request_id: currentRequestId, rating }),
+  });
+  feedbackRow.style.display = "none";
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+Visit Types and General Wellness Information
+
+General consultation: a 20-minute visit for new or ongoing non-urgent
+concerns. The clinician will review history, discuss symptoms at a high
+level, and decide on next steps (tests, referrals, or follow-up).
+
+Follow-up visit: a 15-minute check-in after a prior visit, test, or
+procedure, to review progress and adjust the care plan if needed.
+
+Urgent care: a same-day, 30-minute visit for concerns that need prompt
+attention but are not medical emergencies. True emergencies should always
+go to an emergency room or call emergency services rather than booking
+through this system.
+
+Regular check-ups are generally recommended on an annual basis for adults,
+though frequency depends on age, history, and clinician guidance. Staying
+current on preventive visits is one of the most effective ways to catch
+issues early, but the copilot does not set or override that schedule —
+it only helps book the visit type your clinician recommends.

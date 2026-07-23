@@ -1,0 +1,21 @@
+Appointment Scheduling Policy
+
+Patients can book same-day or future appointments through the voice copilot.
+Available appointment types are: general consultation (20 min), follow-up
+(15 min), and urgent care (30 min, same-day only).
+
+Clinic hours are Monday to Friday, 8:00 AM to 6:00 PM, and Saturday 9:00 AM
+to 1:00 PM. The clinic is closed on Sundays and public holidays.
+
+To book an appointment, the copilot needs: the patient's name, a preferred
+day, and a brief reason for the visit (used only to route to the right
+appointment type and provider, not for diagnosis). Same-day urgent slots
+are limited and are offered on a first-come, first-served basis.
+
+Cancellations require at least 4 hours notice to avoid a missed-appointment
+fee. Rescheduling can be done directly through the copilot at any time
+before the appointment.
+
+For anything requiring immediate medical attention, patients are always
+instructed to call emergency services or go to the nearest emergency room
+rather than booking a routine appointment.

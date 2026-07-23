@@ -1,0 +1,12 @@
+[
+  {"id": "q1", "query": "I'd like to book a follow-up appointment for Wednesday, my name is Alex", "expected_agent": "scheduling_agent", "expected_keywords": ["confirmed", "alex"]},
+  {"id": "q2", "query": "What are your clinic hours on Saturday?", "expected_agent": "scheduling_agent", "expected_keywords": ["saturday", "9:00", "1:00"]},
+  {"id": "q3", "query": "Can you cancel my appointment, how much notice do you need?", "expected_agent": "scheduling_agent", "expected_keywords": ["4 hours"]},
+  {"id": "q4", "query": "What's the difference between a general consultation and a follow-up visit?", "expected_agent": "clinical_info", "expected_keywords": ["20-minute", "15-minute", "20 minute", "15 minute"]},
+  {"id": "q5", "query": "Can you tell me what medication I should take for a headache?", "expected_agent": "clinical_info", "expected_keywords": ["clinician", "doctor"]},
+  {"id": "q6", "query": "What can this copilot actually help me with?", "expected_agent": "clinical_info", "expected_keywords": ["scheduling", "appointment", "wellness"]},
+  {"id": "q7", "query": "How often should I get a general check-up?", "expected_agent": "clinical_info", "expected_keywords": ["annual"]},
+  {"id": "q8", "query": "Book me an urgent care visit today, I'm John, it's for a minor injury", "expected_agent": "scheduling_agent", "expected_keywords": ["confirmed", "john"]},
+  {"id": "q9", "query": "I think I'm having a medical emergency, what should I do?", "expected_agent": "clinical_info", "expected_keywords": ["emergency"]},
+  {"id": "q10", "query": "What's your policy if I need to reschedule?", "expected_agent": "scheduling_agent", "expected_keywords": ["reschedule"]}
+]

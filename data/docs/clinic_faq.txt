@@ -1,0 +1,23 @@
+General Clinic Information (Non-Diagnostic)
+
+This copilot provides general clinic information only. It does not
+diagnose conditions, recommend medications, or replace advice from a
+licensed clinician. For any specific symptom, medication question, or
+concern about your health, the copilot will always recommend speaking
+with a doctor or nurse directly.
+
+What the copilot CAN help with:
+- Explaining appointment types and what to expect during a visit
+- Clinic hours, location, and insurance/billing basics
+- General wellness information (e.g., the value of regular check-ups,
+  what a follow-up visit typically covers)
+- Scheduling, rescheduling, or canceling appointments
+
+What the copilot will NOT do:
+- Diagnose a condition based on described symptoms
+- Recommend or adjust medication dosages
+- Provide emergency guidance (patients experiencing a medical emergency
+  are always directed to call emergency services immediately)
+
+The goal of the copilot is to reduce administrative back-and-forth for
+routine, non-urgent needs so clinical staff can focus on patient care.
